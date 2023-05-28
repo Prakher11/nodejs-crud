@@ -19,27 +19,31 @@ router.post('/items', async (req, res) => {
 
     try {
         const { Name, Price} = req.body;
-        const items = await Item.create({
-            Name, Price
-        });
-        res.json({items});
-        
-    } catch (error) {
-        console.log(error);  
-    }
-});
-router.delete('/items/:id', async (req, res) => {
+        let item = await Item.findOne({Name});
 
-    try {
-        const { id } =req.params;
-        const items = await Item.findById(id);
-        await items.delete();
-        res.json({items});
+        if(item){
+            res.json({items});
+        }else{
+            item = await Item.create({
+                Name, Price
+            });
+            res.json({item});
+        }
         
     } catch (error) {
         console.log(error);  
     }
 });
+
+router.delete('/items/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const items = await Item.findOneAndDelete({ Id: id }); // Use Id instead of _id
+      res.json({ items });
+    } catch (error) {
+      console.log(error);
+    }
+  });
 
 //router.post('/');
 //.get('/');
