@@ -12,8 +12,6 @@ services:
     volumes:
       - D:\nodejs-crud\nodejs-crud\backend:/app
     container_name: node-server
-    network:
-      - backend-net
     
 
 
@@ -23,6 +21,11 @@ services:
       - "27017:27017"
     volumes:
       - daft_goods:/data/db
-    network:
-      - backend-net
     container_name: mongodb-server
+
+networks:
+  backend-net:
+    driver: bridge
+
+volumes:
+  daft_goods:

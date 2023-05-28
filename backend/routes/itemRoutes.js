@@ -18,9 +18,9 @@ router.get('/items', async (req, res) => {
 router.post('/items', async (req, res) => {
 
     try {
-        const { name, price} = req.body;
+        const { Name, Price} = req.body;
         const items = await Item.create({
-            name, price
+            Name, Price
         });
         res.json({items});
         
@@ -41,7 +41,7 @@ router.delete('/items/:id', async (req, res) => {
     }
 });
 
-router.post('/');
-router.get('/');
+//router.post('/');
+//.get('/');
 
 export default router;

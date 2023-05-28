@@ -1,9 +1,12 @@
 import { Schema, model } from "mongoose";
+import { v4 as uuidv4 } from "uuid";
 
 const itemSchema = new Schema({
 
     Id:{
-        type: String
+        type: String,
+        default: uuidv4,
+        unique: true
     },
 
     Name:{
