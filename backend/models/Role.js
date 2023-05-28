@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-
+//const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const Role = mongoose.model(
   "Role",
   new mongoose.Schema({
@@ -7,4 +7,5 @@ const Role = mongoose.model(
   })
 );
 
-module.exports = Role;
+//module.exports = Role;
+export default Role;
