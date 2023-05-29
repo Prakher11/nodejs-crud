@@ -68,7 +68,7 @@ router.post('/register', userHandlers.register);
 router.post('/login', userHandlers.sign_in);
 
 
-router.get('/user', async (req, res) => {
+router.get('/users', async (req, res) => {
   try {
     const users = await User.find();
     res.json({ users });
@@ -78,7 +78,7 @@ router.get('/user', async (req, res) => {
   }
 });
 
-router.get('/user/:id', async (req, res) => {
+router.get('/users/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findOne({ id: id });
@@ -92,10 +92,10 @@ router.get('/user/:id', async (req, res) => {
   }
 });
 
-router.delete('/user', async (req, res) => {
+router.delete('/users', async (req, res) => {
   try {
     await User.deleteMany();
-    return res.send('user deleted');
+    return res.send('users deleted');
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.message });
@@ -117,8 +117,7 @@ router.get('/deleteDb', async (req, res) => {
   }
 });
 
-router.route('/profile')
-        .post(userHandlers.loginRequired, userHandlers.profile);
+router.post('/user',userHandlers.loginRequired, userHandlers.profile);
 
 
 export default router;
