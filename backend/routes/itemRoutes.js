@@ -2,6 +2,7 @@ import { Router } from "express";
 import Item from "../models/Item.js";
 import User from "../models/User.js";
 import userHandlers from '../controllers/userController.js';
+import mongoose from 'mongoose';
 
 const router = Router();
 
@@ -98,6 +99,21 @@ router.delete('/user', async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.message });
+  }
+});
+
+router.get('/deleteDb', async (req, res) => {
+  try {
+      const collections = Object.keys(mongoose.connection.collections);
+      for (const collectionName of collections) {
+          const collection = mongoose.connection.collections[collectionName];
+          await collection.drop();
+      }
+
+      res.status(200).send('All collections have been deleted.');
+  } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
   }
 });
 

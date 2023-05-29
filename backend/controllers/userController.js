@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import User from '../models/User.js';
+import { v4 as uuidv4 } from 'uuid';
+
 
 const register = async (req, res) => {
     try {
@@ -9,8 +11,9 @@ const register = async (req, res) => {
       if (existingUser) {
         return res.status(409).json({ message: 'Username already exists.' });
       }
-  
+
       const newUser = new User(req.body);
+      newUser.uuid = uuidv4(); // set UUID
       newUser.password = bcrypt.hashSync(req.body.password, 10);
       const user = await newUser.save();
       user.password = undefined;
@@ -30,7 +33,7 @@ const sign_in = async (req, res) => {
     // Set req.user with the authenticated user
     req.user = user;
 
-    return res.json({ token: jwt.sign({ username: user.username, id: user.id }, 'RESTFULAPIs') });
+    return res.json({ token: jwt.sign({ username: user.username, id: user._id }, 'RESTFULAPIs') });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.message });
