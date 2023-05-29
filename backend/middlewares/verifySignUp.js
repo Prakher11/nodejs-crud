@@ -1,9 +1,8 @@
-const db = require("../models");
-const ROLES = db.ROLES;
-const User = db.user;
+import db from "../models/index.js";
 
-checkDuplicateUsername= (req, res, next) => {
-  // Username
+const { ROLES, User } = db;
+
+const checkDuplicateUsername = (req, res, next) => {
   User.findOne({
     username: req.body.username
   }).exec((err, user) => {
@@ -19,7 +18,7 @@ checkDuplicateUsername= (req, res, next) => {
   });
 };
 
-checkRolesExisted = (req, res, next) => {
+const checkRolesExisted = (req, res, next) => {
   if (req.body.roles) {
     for (let i = 0; i < req.body.roles.length; i++) {
       if (!ROLES.includes(req.body.roles[i])) {
@@ -38,4 +37,4 @@ const verifySignUp = {
   checkRolesExisted
 };
 
-module.exports = verifySignUp;
+export default verifySignUp;
