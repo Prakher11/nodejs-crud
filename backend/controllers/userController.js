@@ -41,7 +41,8 @@ const sign_in = async (req, res) => {
 
 const loginRequired = (req, res, next) => {
   if (req.user) {
-    return res.json(req.user);
+    //return res.json(req.user);
+    next();
   } else {
     return res.status(401).json({ message: 'Unauthorized user!!' });
   }

@@ -7,6 +7,7 @@ import express from 'express';
 import morgan from 'morgan';
 import itemRoutes from './routes/itemRoutes.js'
 import connectDB from './config/db.js';
+import jsonwebtoken from 'jsonwebtoken';
 
 const app = express();
 
