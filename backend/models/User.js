@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import bcrypt from 'bcrypt';
 
 const userSchema = new Schema({
- uuid: {
+ Id: {
     type: String,
     default: uuidv4,
   },
@@ -19,7 +19,7 @@ const userSchema = new Schema({
   toJSON: {
     transform: function (doc, ret) {
       ret.id = ret._id;
-      //delete ret._id;
+      delete ret._id;
     },
   },
 });
