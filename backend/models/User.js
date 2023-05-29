@@ -1,24 +1,34 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
 import { v4 as uuidv4 } from "uuid";
+import bcrypt from 'bcrypt';
 
-const User = mongoose.model(
-  "User",
-  new mongoose.Schema({
-    Id: {
-            type: String,
-            default: uuidv4,
-            unique: true
-        }
-    ,
-    Username: String,
-    Password: String,
-    roles: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Role"
-      }
-    ]
-  })
-);
+const userSchema = new Schema({
+  id: {
+    type: String,
+    default: uuidv4,
+    unique: true,
+  },
+  username: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+  },
+}, {
+  versionKey: false,
+  toJSON: {
+    transform: function (doc, ret) {
+      ret.id = ret._id;
+      delete ret._id;
+    },
+  },
+});
 
-module.exports = User;
+userSchema.methods.comparePassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
+
+const User = model('User', userSchema);
+
+export default User;
