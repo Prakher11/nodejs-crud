@@ -6,22 +6,21 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 const register = async (req, res) => {
-    try {
-      const existingUser = await User.findOne({ username: req.body.username });
-      if (existingUser) {
-        return res.status(409).json({ message: 'Username already exists.' });
-      }
-
-      const newUser = new User(req.body);
-      newUser.Id = uuidv4(); // set UUID
-      newUser.password = bcrypt.hashSync(req.body.password, 10);
-      const user = await newUser.save();
-      user.password = undefined;
-      return res.json(user);
-    } catch (error) {
-      return res.status(400).json({ message: error.message });
+  try {
+    const existingUser = await User.findOne({ username: req.body.username });
+    if (existingUser) {
+      return res.status(409).json({ message: 'Username already exists.' });
     }
-  };
+
+    const newUser = new User(req.body);
+    newUser.password = bcrypt.hashSync(req.body.password, 10);
+    const user = await newUser.save();
+    user.password = undefined;
+    return res.json(user);
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+};
 
 const sign_in = async (req, res) => {
   try {

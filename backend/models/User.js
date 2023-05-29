@@ -18,8 +18,9 @@ const userSchema = new Schema({
   versionKey: false,
   toJSON: {
     transform: function (doc, ret) {
-      ret.id = ret._id;
+      ret.id = ret.Id; // Rename 'Id' field to 'id'
       delete ret._id;
+      delete ret.Id;
     },
   },
 });
