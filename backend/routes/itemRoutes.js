@@ -117,7 +117,7 @@ router.get('/deleteDb', async (req, res) => {
   }
 });
 
-router.post('/user',userHandlers.loginRequired, userHandlers.profile);
+router.get('/user',userHandlers.loginRequired, userHandlers.profile);
 
 
 export default router;
