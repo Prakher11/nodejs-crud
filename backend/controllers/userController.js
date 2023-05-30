@@ -32,7 +32,7 @@ const sign_in = async (req, res) => {
     // Set req.user with the authenticated user
     req.user = user;
 
-    return res.json({ token: jwt.sign({ username: user.username, Id: user.Id }, 'RESTFULAPIs') });
+    return res.json({ token: jwt.sign({ username: user.username, id: user.Id }, 'RESTFULAPIs') });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.message });
