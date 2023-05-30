@@ -8,6 +8,10 @@ import morgan from 'morgan';
 import itemRoutes from './routes/itemRoutes.js'
 import connectDB from './config/db.js';
 import jsonwebtoken from 'jsonwebtoken';
+import os from 'os';
+
+const { cpus } = os;
+process.env.UV_THREADPOOL_SIZE = cpus().length;
 
 const app = express();
 
