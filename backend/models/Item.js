@@ -18,10 +18,7 @@ const itemSchema = new Schema({
         required: true
     },
     },
-    // {
-    //     toJSON: { virtuals: true },
-    //     id: false, // Exclude the default _id field
-    // }
+    
     {
         versionKey: false, // Exclude the __v field
         toJSON: {
@@ -32,9 +29,6 @@ const itemSchema = new Schema({
     }
 );
 
-// itemSchema.virtual("Id").get(function () {
-//     return this._id.toString();
-//   });
 
 const Item = model('Item', itemSchema);
 
