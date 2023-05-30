@@ -10,7 +10,8 @@ services:
     depends_on:
       - db
     volumes:
-      - D:\nodejs-crud\nodejs-crud\backend:/app
+      - /home/node/app/node_modules
+      #- .:/usr/src/app
     container_name: node-server
     
 
